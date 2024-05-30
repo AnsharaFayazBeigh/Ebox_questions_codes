@@ -1,0 +1,79 @@
+import java.util.Scanner;
+
+class ListNode {
+    int val;
+    ListNode next;
+    ListNode(int x) { val = x; }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // Read input for the first number
+        System.out.println("Enter the element for List1:");
+        int n = scanner.nextInt();
+        int[] values1 = new int[n];
+        for (int i = 0; i < n; i++) {
+            values1[i] = scanner.nextInt();
+        }
+        ListNode l1 = createLinkedList(values1, n);
+
+        // Read input for the second number
+        System.out.println("Enter the element for List2");
+        int m = scanner.nextInt();
+        int[] values2 = new int[m];
+        for (int i = 0; i < m; i++) {
+            values2[i] = scanner.nextInt();
+        }
+        ListNode l2 = createLinkedList(values2, m);
+
+        // Add two numbers represented by the linked lists
+        ListNode sumList = addTwoNumbers(l1, l2);
+        System.out.println("The resulting list is:");
+        printList(sumList);
+    }
+
+    // Function to create a linked list from an array of values
+    public static ListNode createLinkedList(int[] values, int size) {
+        if (size == 0) return null;
+
+        ListNode head = new ListNode(values[0]);
+        ListNode current = head;
+        for (int i = 1; i < size; i++) {
+            current.next = new ListNode(values[i]);
+            current = current.next;
+        }
+        return head;
+    }
+
+    // Function to add two numbers represented by linked lists
+    public static ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        ListNode tempHead = new ListNode(0);
+        ListNode p = l1, q = l2, curr = tempHead;
+        int carry = 0;
+        while (p != null || q != null) {
+            int x = (p != null) ? p.val : 0;
+            int y = (q != null) ? q.val : 0;
+            int sum = carry + x + y;
+            carry = sum / 10;
+            curr.next = new ListNode(sum % 10);
+            curr = curr.next;
+            if (p != null) p = p.next;
+            if (q != null) q = q.next;
+        }
+        if (carry > 0) {
+            curr.next = new ListNode(carry);
+        }
+        return tempHead.next;
+    }
+
+    // Function to print the linked list
+    public static void printList(ListNode head) {
+        while (head != null) {
+            System.out.print(head.val + " ");
+            head = head.next;
+        }
+        System.out.println();
+    }
+}
