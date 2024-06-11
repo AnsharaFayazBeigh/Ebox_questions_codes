@@ -1,0 +1,35 @@
+import java.util.Scanner;
+
+public class Main{
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        
+        
+        System.out.println("Enter a number: ");
+        String number = scanner.nextLine();
+        
+        
+        int[] freq = new int[10];
+        
+     
+        char[] digits = number.toCharArray();
+        
+       
+        for (int i = 0; i < digits.length; i++) {
+            if (Character.isDigit(digits[i])) {
+                freq[digits[i] - '0']++;
+            }
+        }
+        
+      
+        System.out.println("Digit frequencies:");
+        for (int i = 0; i < freq.length; i++) {
+            if (freq[i] > 0) {
+                System.out.println(i + " - " + freq[i]);
+            }
+        }
+        
+   
+        scanner.close();
+    }
+}
